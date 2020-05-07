@@ -86,8 +86,10 @@ public class App
 		result = compareLists(nodeC1, nodeD1);
 		System.out.println("The return was: " + result);
 		*/
+
 // -=#=--=#=--=#=--=#=--=#=--=#=--=#=--=#=--=#=--=#=--=#=--=#=--=#=--=#=--=#=--=#=--=#=-
-		SinglyLinkedListNode nodeA1 = new SinglyLinkedListNode(1);
+    	/*
+    	SinglyLinkedListNode nodeA1 = new SinglyLinkedListNode(1);
 		SinglyLinkedListNode nodeA2 = new SinglyLinkedListNode(2);
 		SinglyLinkedListNode nodeA3 = new SinglyLinkedListNode(3);
 		SinglyLinkedListNode nodeB1 = new SinglyLinkedListNode(3);
@@ -100,12 +102,52 @@ public class App
 		System.out.println("============================");
 		SinglyLinkedListNode result = mergeLists(nodeA1, nodeB1);
 		printFlatLinkedList(result);
+		*/
 
+		// -=#=--=#=--=#=--=#=--=#=--=#=--=#=--=#=--=#=--=#=--=#=--=#=--=#=--=#=--=#=--=#=--=#=-
+
+    	// Get position from tail
+    	// Comnpleted: 5/7/202
+		SinglyLinkedListNode node1 = new SinglyLinkedListNode(3);
+		SinglyLinkedListNode node2 = new SinglyLinkedListNode(2);
+		SinglyLinkedListNode node3 = new SinglyLinkedListNode(1);
+		node1.next = node2;
+		node2.next = node3;
+
+		int result = getNode(node1, 0);
 		
-		
+		System.out.println("Answer: " + result);
 
 	    }
+    
+    static int getNode(SinglyLinkedListNode head, int positionFromTail) {
+    	int index;
+    	
+    	if (head.next == null) {
+    		if (positionFromTail > 0) {
+    			return -(positionFromTail - 1);
+    		} else {
+    			return head.data;
+    		}
+    	} else {
+    		index = getNode(head.next, positionFromTail); 
+    	}
+    	
+    	if (index > 0) {
+    		return index;
+    	}
 
+    	if (index == 0) {
+    		return head.data;
+    	}
+
+    	index++;
+		return  index;
+    }    
+    
+
+    
+    
     static SinglyLinkedListNode mergeLists(SinglyLinkedListNode head1, SinglyLinkedListNode head2) {  
     	SinglyLinkedListNode mergedHead = null;
     	SinglyLinkedListNode mergedNext = null;
