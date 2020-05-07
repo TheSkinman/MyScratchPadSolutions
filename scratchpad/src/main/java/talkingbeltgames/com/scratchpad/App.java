@@ -42,7 +42,7 @@ public class App
 		*/
 		
 // -=#=--=#=--=#=--=#=--=#=--=#=--=#=--=#=--=#=--=#=--=#=--=#=--=#=--=#=--=#=--=#=--=#=-		
-
+    	/*
 		// Delete a Node
 		// Completed: 2/24/2020
 		SinglyLinkedListNode node1 = new SinglyLinkedListNode(20);
@@ -64,12 +64,101 @@ public class App
 		System.out.println("============================");
 		SinglyLinkedListNode result = deleteNode(node1, 3);
 		printLinkedList(result);
+		*/
+// -=#=--=#=--=#=--=#=--=#=--=#=--=#=--=#=--=#=--=#=--=#=--=#=--=#=--=#=--=#=--=#=--=#=-
+		
+		/*
+		SinglyLinkedListNode nodeA1 = new SinglyLinkedListNode(1);
+		SinglyLinkedListNode nodeA2 = new SinglyLinkedListNode(2);
+		SinglyLinkedListNode nodeB1 = new SinglyLinkedListNode(1);
+		SinglyLinkedListNode nodeC1 = new SinglyLinkedListNode(1);
+		SinglyLinkedListNode nodeC2 = new SinglyLinkedListNode(2);
+		SinglyLinkedListNode nodeD1 = new SinglyLinkedListNode(1);
+		SinglyLinkedListNode nodeD2 = new SinglyLinkedListNode(2);
+		nodeA1.next = nodeA2;
+		nodeC1.next = nodeC2;
+		nodeD1.next = nodeD2;
 
-// -=#=--=#=--=#=--=#=--=#=--=#=--=#=--=#=--=#=--=#=--=#=--=#=--=#=--=#=--=#=--=#=--=#=-		
+		System.out.println("============================");
+		boolean result = compareLists(nodeA1, nodeB1);
+		System.out.println("The return was: " + result);
+		System.out.println("============================");
+		result = compareLists(nodeC1, nodeD1);
+		System.out.println("The return was: " + result);
+		*/
+// -=#=--=#=--=#=--=#=--=#=--=#=--=#=--=#=--=#=--=#=--=#=--=#=--=#=--=#=--=#=--=#=--=#=-
+		SinglyLinkedListNode nodeA1 = new SinglyLinkedListNode(1);
+		SinglyLinkedListNode nodeA2 = new SinglyLinkedListNode(2);
+		SinglyLinkedListNode nodeA3 = new SinglyLinkedListNode(3);
+		SinglyLinkedListNode nodeB1 = new SinglyLinkedListNode(3);
+		SinglyLinkedListNode nodeB2 = new SinglyLinkedListNode(4);
+		nodeA1.next = nodeA2;
+		nodeA2.next = nodeA3;
+		nodeB1.next = nodeB2;
+		printFlatLinkedList(nodeA1);
+		printFlatLinkedList(nodeB1);
+		System.out.println("============================");
+		SinglyLinkedListNode result = mergeLists(nodeA1, nodeB1);
+		printFlatLinkedList(result);
+
+		
+		
 
 	    }
 
-
+    static SinglyLinkedListNode mergeLists(SinglyLinkedListNode head1, SinglyLinkedListNode head2) {  
+    	SinglyLinkedListNode mergedHead = null;
+    	SinglyLinkedListNode mergedNext = null;
+    	
+    	if (head1.data <= head2.data) {
+    		mergedHead = new SinglyLinkedListNode(head1.data);
+    		head1 = head1.next;
+    	} else {
+    		mergedHead = new SinglyLinkedListNode(head2.data);
+    		head2 = head2.next;
+    	}
+    	
+    	mergedNext = mergedHead;
+    	
+    	while (head1 != null || head2 != null) {
+    		if (head1 == null) {
+        		mergedNext.next = new SinglyLinkedListNode(head2.data);
+        		mergedNext = mergedNext.next;
+        		head2 = head2.next;
+    		} else if (head2 == null) {
+        		mergedNext.next = new SinglyLinkedListNode(head1.data);
+        		mergedNext = mergedNext.next;
+        		head1 = head1.next;
+    		} else {
+	    		if (head1.data <= head2.data) {
+	        		mergedNext.next = new SinglyLinkedListNode(head1.data);
+	        		mergedNext = mergedNext.next;
+	        		head1 = head1.next;
+	        	} else {
+	        		mergedNext.next = new SinglyLinkedListNode(head2.data);
+	        		mergedNext = mergedNext.next;
+	        		head2 = head2.next;
+	        	}
+    		}
+    	}
+    	
+    	return mergedHead;
+    }
+    
+    static boolean compareLists(SinglyLinkedListNode head1, SinglyLinkedListNode head2) {
+    	if (head1 == null && head2 == null) {
+    		return true;
+    	} else if (head1 == null || head2 == null) {
+    		return false;
+    	}
+    	
+    	if (!compareLists(head1.next, head2.next)) {
+    		return false;
+    	}
+    	
+    	return (head1.data == head2.data);
+    }
+    
     static SinglyLinkedListNode deleteNode(SinglyLinkedListNode head, int position) {
 		if (position == 0) {
 			return head.next;
@@ -92,7 +181,6 @@ public class App
     	
     	return head;
     }
-
     
 	public static List<Integer> dynamicArray(int n, List<List<Integer>> queries) {
 		List<Integer> returnList = new ArrayList<>();
@@ -135,6 +223,18 @@ public class App
             nextNode = head.next;
         }
         System.out.println(head.data);
+    }	
+
+    static void printFlatLinkedList(SinglyLinkedListNode head) {
+        SinglyLinkedListNode nextNode = head;
+        StringBuilder sb = new StringBuilder();
+        
+        while (nextNode != null) {
+        	sb.append(nextNode.data + " => ");
+            nextNode = nextNode.next;
+        }
+        sb.append("NULL");
+        System.out.println(sb.toString());
     }	
 
     static SinglyLinkedListNode insertNodeAtPosition(SinglyLinkedListNode head, int data, int position) {
